@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Stock_Finishing.Views.LoginView"
+             BackgroundColor="#151e3d"
+             Shell.FlyoutBehavior="Disabled" Shell.NavBarIsVisible="False">
+    <StackLayout Padding="30" VerticalOptions="Center">
+
+        <Image Source="security"
+               HorizontalOptions="Center"
+               HeightRequest="80"/>
+
+        <Label Text="Bienvenido" 
+               FontSize="Large" 
+               TextColor="White" 
+               HorizontalOptions="Center"
+               Margin="0,20,0,5"/>
+
+        <!--<Label Text="Ingresa tus credenciales de acceso" 
+               FontSize="Medium" 
+               TextColor="LightGray" 
+               HorizontalOptions="Center"
+               Margin="0,0,0,5"/>-->
+
+        <StackLayout BackgroundColor="#151e3d" Padding="10" Margin="0,0,0,5">
+            <Frame BackgroundColor="#00000000"
+                   BorderColor="#00000000"
+                   WidthRequest="50"
+                   HeightRequest="50"
+                   Padding="10">
+                <Image Source="user" />
+            </Frame>
+            <Entry Placeholder="Usuario" 
+                   TextColor="WhiteSmoke"
+                   PlaceholderColor="White"
+                   Text="{Binding UserName}"
+                   Keyboard="Email"
+                   HorizontalOptions="FillAndExpand"
+                    x:Name="usernameEntry"
+                   TextChanged="OnTextChanged" />
+        </StackLayout>
+
+        <StackLayout BackgroundColor="#151e3d" Padding="10" Margin="0,0,0,5">
+            <Frame BackgroundColor="#00000000"
+                   BorderColor="#00000000"
+                   WidthRequest="50"
+                   HeightRequest="50"
+                   Padding="10">
+                <Image Source="password" />
+            </Frame>
+            <Entry Placeholder="Password" 
+                   IsPassword="True" 
+                   TextColor="WhiteSmoke"
+                   PlaceholderColor="White"
+                   Text="{Binding Password}"
+                   HorizontalOptions="FillAndExpand"
+                   x:Name="passwordEntry"
+                   TextChanged="OnTextChanged" />
+        </StackLayout>
+
+        <Button Text="Acceder" 
+                TextColor="White"
+                FontSize="Medium"
+                CornerRadius="25"
+                HeightRequest="50"
+                x:Name="btnLogin"
+                BackgroundColor="#41506a"
+                Command="{Binding LoginCommand}"
+                IsEnabled="False" />
+        <Grid 
+              BackgroundColor="#151e3d"
+              IsVisible="{Binding IsBusy}">
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               HorizontalOptions="Center" />
+        </Grid>
+
+    </StackLayout>
+</ContentPage>

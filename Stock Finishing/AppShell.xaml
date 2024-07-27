@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Stock_Finishing.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Stock_Finishing"
+    xmlns:views="clr-namespace:Stock_Finishing.Views"
+    Shell.FlyoutBehavior="Disabled"
+    Title="Stock_Finishing">
+
+    <TabBar>
+        <Tab Title="Stock"
+            Icon="roll.png">
+            <ShellContent ContentTemplate="{DataTemplate views:StockView}" />
+        </Tab>
+        <Tab Title="Scanner"
+            Icon="scanner.png">
+            <ShellContent Title="Rollos" ContentTemplate="{DataTemplate views:ScanRollView}" />
+            <ShellContent Title="Crudo" ContentTemplate="{DataTemplate views:ScanRollProductionView}" />
+            <ShellContent Title="Reprocesos" ContentTemplate="{DataTemplate views:ScanRollReprocessView}" />
+        </Tab>
+        <Tab Title="Profile"
+            Icon="user.png">
+            <ShellContent ContentTemplate="{DataTemplate views:ProfileView}" />
+        </Tab>
+    </TabBar>
+
+</Shell>
