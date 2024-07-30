@@ -4,14 +4,11 @@ using Stock_Finishing.Models;
 using Stock_Finishing.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Stock_Finishing.ViewModels
 {
-    public partial class StockViewModel : INotifyPropertyChanged
+    public partial class StockReprocessViewModel : INotifyPropertyChanged
     {
         private readonly IFinishingService finishingService;
         private readonly IMessageService messageService;
@@ -78,7 +75,7 @@ namespace Stock_Finishing.ViewModels
             }
         }
 
-        public StockViewModel()
+        public StockReprocessViewModel()
         {
             finishingService = App.Current.Services.GetService<IFinishingService>();
             messageService = App.Current.Services.GetService<IMessageService>();
@@ -87,7 +84,7 @@ namespace Stock_Finishing.ViewModels
 
         public async Task LoadDataAsync()
         {
-            var data = await finishingService.GetInventoryMeters(1);
+            var data = await finishingService.GetInventoryMeters(3);
             if (data != null)
             {
                 MetersScanned = data.Data.MetersScanned;
@@ -109,7 +106,7 @@ namespace Stock_Finishing.ViewModels
 
         private async Task InitializeStyles()
         {
-            var data = await finishingService.GetListStyleData(1);
+            var data = await finishingService.GetListStyleData(3);
 
             if (data != null)
             {
@@ -162,7 +159,7 @@ namespace Stock_Finishing.ViewModels
             {
                 IsBusy = true;
 
-                var data = await finishingService.GetInventoryMetersByStyle(1, styleCode);
+                var data = await finishingService.GetInventoryMetersByStyle(3, styleCode);
                 if (data != null)
                 {
                     MetersScanned = data.Data.MetersScanned;

@@ -1,20 +1,20 @@
 ﻿using Stock_Finishing.Models;
 using Stock_Finishing.RepositoryAPI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Stock_Finishing.Services
 {
     public interface IFinishingService
     {
         Task<ResultModel<RuloMigrationModel>> GetRuloMigration(int ruloMigrationID);
-        Task<ResultModel<decimal>> SubtractMetersToTheStyle(SubtractMetersModel request);
-        Task<ResultModel<InventoryMetersModel>> GetInventoryMeters();
-        Task<ResultModel<InventoryMetersModel>> GetInventoryMetersByStyle(string style);
+        Task<ResultModel<RuloModel>> GetRulo(int ruloID);
+        Task<ResultModel<ReprocessModel>> GetReprocess(int reprocessID);
+        Task<ResultModel<decimal>> SubtractMetersInRawStyle(SubtractMetersModel request);
+        Task<ResultModel<decimal>> SubtractMetersInProductionStyle(SubtractMetersModel request);
+        Task<ResultModel<decimal>> SubtractMetersInReprocessStyle(SubtractMetersModel request);
+        Task<ResultModel<InventoryMetersModel>> GetInventoryMeters(int type);
+        Task<ResultModel<InventoryMetersModel>> GetInventoryMetersByStyle(int type, string style);
+        Task<ResultModel<List<StyleModel>>> GetListStyleData(int type);
     }
 
     public class FinishingService : IFinishingService
@@ -33,7 +33,7 @@ namespace Stock_Finishing.Services
 
         public async Task<ResultModel<RuloMigrationModel>> GetRuloMigration(int ruloMigrationID)
         {
-            ResultModel<RuloMigrationModel> resultModel = new ResultModel<RuloMigrationModel>();
+            ResultModel<RuloMigrationModel> resultModel = new();
             var responseApi = await repositoryApi.Get<RuloMigrationModel>($"Finishing/GetRuloMigration?ruloMigrationID={ruloMigrationID}");
 
             await ValidateResponse(resultModel, responseApi);
@@ -41,30 +41,80 @@ namespace Stock_Finishing.Services
             return resultModel;
         }
 
-        public async Task<ResultModel<decimal>> SubtractMetersToTheStyle(SubtractMetersModel request)
+        public async Task<ResultModel<RuloModel>> GetRulo(int ruloID)
         {
-            ResultModel<decimal> resultModel = new ResultModel<decimal>();
-            var responseApi = await repositoryApi.Post<decimal, SubtractMetersModel>($"Finishing/SubtractMetersToTheStyle", request);
+            ResultModel<RuloModel> resultModel = new();
+            var responseApi = await repositoryApi.Get<RuloModel>($"Finishing/GetRuloForStockApp?ruloID={ruloID}");
 
             await ValidateResponse(resultModel, responseApi);
 
             return resultModel;
         }
 
-        public async Task<ResultModel<InventoryMetersModel>> GetInventoryMeters()
+        public async Task<ResultModel<ReprocessModel>> GetReprocess(int reprocessID)
         {
-            ResultModel<InventoryMetersModel> resultModel = new ResultModel<InventoryMetersModel>();
-            var responseApi = await repositoryApi.Get<InventoryMetersModel>($"Finishing/GetInventoryMeters");
+            ResultModel<ReprocessModel> resultModel = new();
+            var responseApi = await repositoryApi.Get<ReprocessModel>($"Inspection/GetReprocessFromReprocessID?reprocessID={reprocessID}");
 
             await ValidateResponse(resultModel, responseApi);
 
             return resultModel;
         }
 
-        public async Task<ResultModel<InventoryMetersModel>> GetInventoryMetersByStyle(string style)
+        public async Task<ResultModel<decimal>> SubtractMetersInRawStyle(SubtractMetersModel request)
         {
-            ResultModel<InventoryMetersModel> resultModel = new ResultModel<InventoryMetersModel>();
-            var responseApi = await repositoryApi.Get<InventoryMetersModel>($"Finishing/GetInventoryMetersByStyle?style={style}");
+            ResultModel<decimal> resultModel = new();
+            var responseApi = await repositoryApi.Post<decimal, SubtractMetersModel>($"Finishing/SubtractMetersInRawStyle", request);
+
+            await ValidateResponse(resultModel, responseApi);
+
+            return resultModel;
+        }
+
+        public async Task<ResultModel<decimal>> SubtractMetersInProductionStyle(SubtractMetersModel request)
+        {
+            ResultModel<decimal> resultModel = new();
+            var responseApi = await repositoryApi.Post<decimal, SubtractMetersModel>($"Finishing/SubtractMetersInProductionStyle", request);
+
+            await ValidateResponse(resultModel, responseApi);
+
+            return resultModel;
+        }
+
+        public async Task<ResultModel<decimal>> SubtractMetersInReprocessStyle(SubtractMetersModel request)
+        {
+            ResultModel<decimal> resultModel = new();
+            var responseApi = await repositoryApi.Post<decimal, SubtractMetersModel>($"Finishing/SubtractMetersInReprocessStyle", request);
+
+            await ValidateResponse(resultModel, responseApi);
+
+            return resultModel;
+        }
+
+        public async Task<ResultModel<InventoryMetersModel>> GetInventoryMeters(int type)
+        {
+            ResultModel<InventoryMetersModel> resultModel = new();
+            var responseApi = await repositoryApi.Get<InventoryMetersModel>($"Finishing/GetInventoryMeters?type={type}");
+
+            await ValidateResponse(resultModel, responseApi);
+
+            return resultModel;
+        }
+
+        public async Task<ResultModel<InventoryMetersModel>> GetInventoryMetersByStyle(int type, string style)
+        {
+            ResultModel<InventoryMetersModel> resultModel = new();
+            var responseApi = await repositoryApi.Get<InventoryMetersModel>($"Finishing/GetInventoryMetersByStyle?type={type}&style={style}");
+
+            await ValidateResponse(resultModel, responseApi);
+
+            return resultModel;
+        }
+
+        public async Task<ResultModel<List<StyleModel>>> GetListStyleData(int type)
+        {
+            ResultModel<List<StyleModel>> resultModel = new();
+            var responseApi = await repositoryApi.Get<List<StyleModel>>($"Finishing/GetListStyleData?type={type}");
 
             await ValidateResponse(resultModel, responseApi);
 

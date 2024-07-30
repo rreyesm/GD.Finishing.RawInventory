@@ -1,12 +1,169 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Stock_Finishing.Views.ScanRollReprocessView"
-             Title="ScanRollReprocessView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:cv="clr-namespace:Stock_Finishing.Helpers"
+             xmlns:vm="clr-namespace:Stock_Finishing.ViewModels"
+             Shell.NavBarIsVisible="False"
+             x:Class="Stock_Finishing.Views.ScanRollReprocessView">
+    <ContentPage.Resources>
+        <cv:DoubleConverter x:Key="doubleConverter" />
+    </ContentPage.Resources>
+
+    <ContentPage.BindingContext>
+        <vm:ScanRollReprocessViewModel/>
+    </ContentPage.BindingContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ScrollView Grid.Row="0" Padding="15,0,15,15">
+            <VerticalStackLayout Spacing="10">
+                <Border BackgroundColor="#E0F7FA"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 10,10,10,10"
+                    HeightRequest="375"
+                    Margin="0,20,0,0"
+                    Padding="15">
+                    <VerticalStackLayout Spacing="10">
+                        <HorizontalStackLayout Spacing="10" HorizontalOptions="CenterAndExpand">
+                            <Image Source="icon_scan.png"
+                                HeightRequest="24"
+                                WidthRequest="24" />
+                            <Label Text="Escanear etiqueta de rollo"
+                                FontSize="Medium"
+                                FontAttributes="Bold"
+                                TextColor="#00796B" />
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout Spacing="10" HorizontalOptions="CenterAndExpand">
+                            <Label Text="ID de Rollo:"
+                                FontSize="Medium"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center" />
+                            <Entry Placeholder="Ingrese el ID del Rollo"
+                                x:Name="entReprocessID"
+                                Keyboard="Numeric"
+                                Text="{Binding ReprocessID, Converter={StaticResource doubleConverter}, Mode=TwoWay}"
+                                FontSize="Medium"
+                                HorizontalOptions="Center"/>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout Spacing="10" HeightRequest="35" HorizontalOptions="CenterAndExpand">
+                            <Label Text="ID del Rollo:"
+                                FontSize="Medium"
+                                VerticalOptions="Center"
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center" />
+                            <Label Text="{Binding Reprocess.ReprocessID}"
+                                FontSize="Medium"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center" />
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout Spacing="10" HeightRequest="35" HorizontalOptions="CenterAndExpand">
+                            <Label Text="Lote del Rollo:"
+                                FontSize="Medium"
+                                VerticalOptions="Center"
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center" />
+                            <Label Text="{Binding Reprocess.Lote}"
+                                FontSize="Medium"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center" />
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout Spacing="10" HeightRequest="35" HorizontalOptions="CenterAndExpand">
+                            <Label Text="Julio del Rollo:"
+                                FontSize="Medium"
+                                VerticalOptions="Center"
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center" />
+                            <Label Text="{Binding Reprocess.Beam}"
+                                FontSize="Medium"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center" />
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout Spacing="10" HeightRequest="35" HorizontalOptions="CenterAndExpand">
+                            <Label Text="Telar del Rollo:"
+                                FontSize="Medium"
+                                VerticalOptions="Center"
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center" />
+                            <Label Text="{Binding Reprocess.Loom}"
+                                FontSize="Medium"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center" />
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout Spacing="10" HeightRequest="35" HorizontalOptions="CenterAndExpand">
+                            <Label Text="Estilo del Rollo:"
+                                FontSize="Medium"
+                                VerticalOptions="Center"
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center" />
+                            <Label Text="{Binding Reprocess.StyleName}"
+                                FontSize="Medium"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center" />
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout Spacing="10" HeightRequest="35" HorizontalOptions="CenterAndExpand">
+                            <Label Text="Metros del Rollo:"
+                                FontSize="Medium"
+                                VerticalOptions="Center"
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center" />
+                            <Label Text="{Binding Reprocess.Meters}"
+                                FontSize="Medium"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center" />
+                        </HorizontalStackLayout>
+
+                    </VerticalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <HorizontalStackLayout Grid.Row="1" Spacing="10" Margin="20" HorizontalOptions="CenterAndExpand">
+            <Button Text="Buscar rollo" 
+                Padding="10,10,10,10"
+                BackgroundColor="#151e3d"
+                TextColor="White"
+                x:Name="btnAddReprocessMigration"
+                FontSize="Medium"
+                HeightRequest="50"
+                Command="{Binding SearchReprocessCommand}"
+                CommandParameter="{x:Reference entReprocessID}"
+                CornerRadius="10"
+                HorizontalOptions="Center"/>
+
+            <!--<Button Text="Registrar Rollo"
+                Padding="10,10,10,10"
+                TextColor="White"
+                FontSize="Medium"
+                HeightRequest="50"
+                Command="{Binding SubtractMetersToTheStyleCommand}"
+                CornerRadius="10"
+                HorizontalOptions="Center"
+                IsEnabled="{Binding IsReprocessAvailable}">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsReprocessAvailable}" Value="False">
+                        <Setter Property="BackgroundColor" Value="Gray" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsReprocessAvailable}" Value="True">
+                        <Setter Property="BackgroundColor" Value="#4CAF50" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>-->
+
+        </HorizontalStackLayout>
+
+        <Grid Opacity=".6" BackgroundColor="Black" IsVisible="{Binding IsBusy}">
+            <ActivityIndicator IsRunning="{Binding IsBusy}" HorizontalOptions="Center" />
+        </Grid>
+    </Grid>
 </ContentPage>

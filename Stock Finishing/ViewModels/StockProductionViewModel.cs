@@ -2,6 +2,8 @@
 using DevExpress.Maui.Editors;
 using Stock_Finishing.Models;
 using Stock_Finishing.Services;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -11,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Stock_Finishing.ViewModels
 {
-    public partial class StockViewModel : INotifyPropertyChanged
+    public partial class StockProductionViewModel : INotifyPropertyChanged
     {
         private readonly IFinishingService finishingService;
         private readonly IMessageService messageService;
@@ -78,7 +80,7 @@ namespace Stock_Finishing.ViewModels
             }
         }
 
-        public StockViewModel()
+        public StockProductionViewModel()
         {
             finishingService = App.Current.Services.GetService<IFinishingService>();
             messageService = App.Current.Services.GetService<IMessageService>();
@@ -87,7 +89,7 @@ namespace Stock_Finishing.ViewModels
 
         public async Task LoadDataAsync()
         {
-            var data = await finishingService.GetInventoryMeters(1);
+            var data = await finishingService.GetInventoryMeters(2);
             if (data != null)
             {
                 MetersScanned = data.Data.MetersScanned;
@@ -109,7 +111,7 @@ namespace Stock_Finishing.ViewModels
 
         private async Task InitializeStyles()
         {
-            var data = await finishingService.GetListStyleData(1);
+            var data = await finishingService.GetListStyleData(2);
 
             if (data != null)
             {
@@ -162,7 +164,7 @@ namespace Stock_Finishing.ViewModels
             {
                 IsBusy = true;
 
-                var data = await finishingService.GetInventoryMetersByStyle(1, styleCode);
+                var data = await finishingService.GetInventoryMetersByStyle(2, styleCode);
                 if (data != null)
                 {
                     MetersScanned = data.Data.MetersScanned;

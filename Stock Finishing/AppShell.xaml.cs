@@ -12,6 +12,8 @@ namespace Stock_Finishing
                 InitializeComponent();
                 Routing.RegisterRoute(nameof(LoginView), typeof(LoginView));
                 Routing.RegisterRoute(nameof(StockView), typeof(StockView));
+                Routing.RegisterRoute(nameof(StockProductionView), typeof(StockProductionView));
+                Routing.RegisterRoute(nameof(StockReprocessView), typeof(StockReprocessView));
                 Routing.RegisterRoute(nameof(ScanRollView), typeof(ScanRollView));
                 Routing.RegisterRoute(nameof(ScanRollProductionView), typeof(ScanRollProductionView));
                 Routing.RegisterRoute(nameof(ScanRollReprocessView), typeof(ScanRollReprocessView));

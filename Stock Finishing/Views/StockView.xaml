@@ -5,7 +5,8 @@
              xmlns:dxc="clr-namespace:DevExpress.Maui.Charts;assembly=DevExpress.Maui.Charts"
              xmlns:vm="clr-namespace:Stock_Finishing.ViewModels"
              xmlns:local="clr-namespace:Stock_Finishing.Helpers"
-             x:Class="Stock_Finishing.Views.StockView">
+             x:Class="Stock_Finishing.Views.StockView"
+             Shell.NavBarIsVisible="False">
 
     <ContentPage.BindingContext>
         <vm:StockViewModel/>
@@ -40,7 +41,7 @@
             </dx:AutoCompleteEdit>
 
             <Grid ColumnDefinitions="*,*"
-              Padding="0,10,0,10"
+              Padding="0,5,0,5"
               ColumnSpacing="10">
                 <Border BackgroundColor="#42a5f5"
                     Padding="10"
@@ -79,7 +80,7 @@
             </Grid>
 
             <Border BackgroundColor="Transparent"
-                HeightRequest="290"
+                HeightRequest="285"
                 Padding="0"
                 StrokeThickness="1"
                 StrokeShape="RoundRectangle 10,10,10,10"
@@ -137,8 +138,7 @@
                     </dx:PieChartView.Hint>
                 </dx:PieChartView>
             </Border>
-            
+
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>

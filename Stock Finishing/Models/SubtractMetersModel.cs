@@ -8,7 +8,7 @@ namespace Stock_Finishing.Models
 {
     public class SubtractMetersModel
     {
-        public int RuloMigrationID { get; set; }
+        public int ID { get; set; }
         public int User { get; set; }
     }
 }

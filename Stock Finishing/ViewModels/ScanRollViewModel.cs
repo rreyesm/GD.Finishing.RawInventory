@@ -3,11 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using Stock_Finishing.Helpers;
 using Stock_Finishing.Models;
 using Stock_Finishing.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Stock_Finishing.ViewModels
 {
@@ -96,11 +91,11 @@ namespace Stock_Finishing.ViewModels
                 {
                     SubtractMetersModel subtractMetersModel = new()
                     {
-                        RuloMigrationID = RuloMigrationID,
+                        ID = RuloMigrationID,
                         User = App.UserModel.UserID
                     };
 
-                    var result = await finishingService.SubtractMetersToTheStyle(subtractMetersModel);
+                    var result = await finishingService.SubtractMetersInRawStyle(subtractMetersModel);
 
                     if (!result.IsSuccess)
                     {

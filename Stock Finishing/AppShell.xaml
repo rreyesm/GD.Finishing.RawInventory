@@ -6,12 +6,18 @@
     xmlns:local="clr-namespace:Stock_Finishing"
     xmlns:views="clr-namespace:Stock_Finishing.Views"
     Shell.FlyoutBehavior="Disabled"
+    Shell.TabBarBackgroundColor="White"
+    Shell.TabBarForegroundColor="#151e3d"
+    Shell.TabBarUnselectedColor="LightSlateGray"
+    Shell.TabBarTitleColor="#151e3d"
     Title="Stock_Finishing">
 
     <TabBar>
         <Tab Title="Stock"
             Icon="roll.png">
-            <ShellContent ContentTemplate="{DataTemplate views:StockView}" />
+            <ShellContent Title="Rollos" ContentTemplate="{DataTemplate views:StockView}" />
+            <ShellContent Title="Crudo" ContentTemplate="{DataTemplate views:StockProductionView}" />
+            <ShellContent Title="Reprocesos" ContentTemplate="{DataTemplate views:StockReprocessView}" />
         </Tab>
         <Tab Title="Scanner"
             Icon="scanner.png">
