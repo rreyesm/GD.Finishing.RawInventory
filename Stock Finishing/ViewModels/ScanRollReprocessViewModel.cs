@@ -72,6 +72,12 @@ namespace Stock_Finishing.ViewModels
                         return;
                     }
 
+                    if (result.Data.DestinationRuloID != null)
+                    {
+                        await messageService.ShowAlertAsync("El ID ya cuenta con un registro de Rollo de Producción");
+                        return;
+                    }
+
                     Reprocess = result.Data;
                     IsReprocessAvailable = Reprocess != null;
                 }

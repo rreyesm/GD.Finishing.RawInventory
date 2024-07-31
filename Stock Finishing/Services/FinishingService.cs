@@ -57,7 +57,7 @@ namespace Stock_Finishing.Services
         public async Task<ResultModel<ReprocessModel>> GetReprocess(int reprocessID)
         {
             ResultModel<ReprocessModel> resultModel = new();
-            var responseApi = await repositoryApi.Get<ReprocessModel>($"Inspection/GetReprocessFromReprocessID?reprocessID={reprocessID}");
+            var responseApi = await repositoryApi.Get<ReprocessModel>($"Finishing/GetReprocess?reprocessID={reprocessID}");
 
             await ValidateResponse(resultModel, responseApi);
 

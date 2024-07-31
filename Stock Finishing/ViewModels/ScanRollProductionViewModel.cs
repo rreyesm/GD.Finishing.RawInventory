@@ -72,6 +72,14 @@ namespace Stock_Finishing.ViewModels
                         return;
                     }
 
+                    var reprocess = await finishingService.GetReprocess(RuloID);
+
+                    if (reprocess.IsSuccess && reprocess.Data.OriginRuloID == RuloID)
+                    {
+                        await messageService.ShowAlertAsync("El ID ya cuenta con un registro de Rollo de Reproceso");
+                        return;
+                    }
+
                     Rulo = result.Data;
                     IsRuloAvailable = Rulo != null;
                 }
