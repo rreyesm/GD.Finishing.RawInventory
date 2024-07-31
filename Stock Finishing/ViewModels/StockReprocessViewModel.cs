@@ -18,7 +18,7 @@ namespace Stock_Finishing.ViewModels
 
         public ObservableCollection<RollData> RollosData { get; set; }
 
-        private List<StyleModel> _allStyles;
+        private List<OriginModel> _allOrigins;
 
         private bool _isBusy;
         public bool IsBusy
@@ -60,17 +60,17 @@ namespace Stock_Finishing.ViewModels
             }
         }
 
-        private StyleModel _selectedStyle;
-        public StyleModel SelectedStyle
+        private OriginModel _selectedOrigin;
+        public OriginModel SelectedOrigin
         {
-            get => _selectedStyle;
+            get => _selectedOrigin;
             set
             {
-                if (_selectedStyle != value)
+                if (_selectedOrigin != value)
                 {
-                    _selectedStyle = value;
+                    _selectedOrigin = value;
                     OnPropertyChanged();
-                    OnStyleSelected();
+                    OnOriginSelected();
                 }
             }
         }
@@ -106,15 +106,15 @@ namespace Stock_Finishing.ViewModels
 
         private async Task InitializeStyles()
         {
-            var data = await finishingService.GetListStyleData(3);
+            var data = await finishingService.GetListOriginData(2);
 
             if (data != null)
             {
-                _allStyles = data.Data;
+                _allOrigins = data.Data;
             }
             else
             {
-                _allStyles = [];
+                _allOrigins = [];
             }
         }
 
@@ -136,30 +136,30 @@ namespace Stock_Finishing.ViewModels
         {
             e.Request = () =>
             {
-                var filteredStyles = _allStyles
-                    .Where(p => p.StyleName.Contains(e.Text, StringComparison.OrdinalIgnoreCase) ||
-                                p.StyleCode.Contains(e.Text, StringComparison.OrdinalIgnoreCase))
+                var filteredStyles = _allOrigins
+                    .Where(p => p.OriginCode.Contains(e.Text, StringComparison.OrdinalIgnoreCase) ||
+                                p.OriginDescription.Contains(e.Text, StringComparison.OrdinalIgnoreCase))
                     .ToList();
                 return filteredStyles.Cast<object>();
             };
         }
 
         [RelayCommand]
-        public async Task OnStyleSelected()
+        public async Task OnOriginSelected()
         {
-            if (SelectedStyle != null)
+            if (SelectedOrigin != null)
             {
-                await LoadDataForSelectedStyle(SelectedStyle.StyleCode);
+                await LoadDataForSelectedStyle(SelectedOrigin.OriginCode);
             }
         }
 
-        private async Task LoadDataForSelectedStyle(string styleCode)
+        private async Task LoadDataForSelectedStyle(string origin)
         {
             try
             {
                 IsBusy = true;
 
-                var data = await finishingService.GetInventoryMetersByStyle(3, styleCode);
+                var data = await finishingService.GetInventoryMetersByParam(3, origin);
                 if (data != null)
                 {
                     MetersScanned = data.Data.MetersScanned;
@@ -169,7 +169,7 @@ namespace Stock_Finishing.ViewModels
             }
             catch (Exception ex)
             {
-                await messageService.ShowErrorAsync($"Error al cargar datos para el estilo {styleCode}: {ex.Message}");
+                await messageService.ShowErrorAsync($"Error al cargar datos para el origen {origin}: {ex.Message}");
             }
             finally
             {

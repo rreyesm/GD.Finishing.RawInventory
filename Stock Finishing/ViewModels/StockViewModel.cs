@@ -109,7 +109,7 @@ namespace Stock_Finishing.ViewModels
 
         private async Task InitializeStyles()
         {
-            var data = await finishingService.GetListStyleData(1);
+            var data = await finishingService.GetListStyleData();
 
             if (data != null)
             {
@@ -162,7 +162,7 @@ namespace Stock_Finishing.ViewModels
             {
                 IsBusy = true;
 
-                var data = await finishingService.GetInventoryMetersByStyle(1, styleCode);
+                var data = await finishingService.GetInventoryMetersByParam(1, styleCode);
                 if (data != null)
                 {
                     MetersScanned = data.Data.MetersScanned;

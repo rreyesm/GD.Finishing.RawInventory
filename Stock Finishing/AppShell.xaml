@@ -15,15 +15,15 @@
     <TabBar>
         <Tab Title="Stock"
             Icon="roll.png">
-            <ShellContent Title="Rollos" ContentTemplate="{DataTemplate views:StockView}" />
-            <ShellContent Title="Crudo" ContentTemplate="{DataTemplate views:StockProductionView}" />
-            <ShellContent Title="Reprocesos" ContentTemplate="{DataTemplate views:StockReprocessView}" />
+            <ShellContent Title="Crudo" IsVisible="{Binding IsRawVisible}" ContentTemplate="{DataTemplate views:StockView}" />
+            <ShellContent Title="Rollos" IsVisible="{Binding IsProductionVisible}" ContentTemplate="{DataTemplate views:StockProductionView}" />
+            <ShellContent Title="Reprocesos" IsVisible="{Binding IsReprocessVisible}" ContentTemplate="{DataTemplate views:StockReprocessView}" />
         </Tab>
         <Tab Title="Scanner"
             Icon="scanner.png">
-            <ShellContent Title="Rollos" ContentTemplate="{DataTemplate views:ScanRollView}" />
-            <ShellContent Title="Crudo" ContentTemplate="{DataTemplate views:ScanRollProductionView}" />
-            <ShellContent Title="Reprocesos" ContentTemplate="{DataTemplate views:ScanRollReprocessView}" />
+            <ShellContent Title="Crudo" IsVisible="{Binding IsRawVisible}" ContentTemplate="{DataTemplate views:ScanRollView}" />
+            <ShellContent Title="Rollos" IsVisible="{Binding IsProductionVisible}" ContentTemplate="{DataTemplate views:ScanRollProductionView}" />
+            <ShellContent Title="Reprocesos" IsVisible="{Binding IsReprocessVisible}" ContentTemplate="{DataTemplate views:ScanRollReprocessView}" />
         </Tab>
         <Tab Title="Profile"
             Icon="user.png">

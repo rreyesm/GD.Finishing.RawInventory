@@ -81,5 +81,37 @@ namespace Stock_Finishing.ViewModels
                 await messageService.ShowAlertAsync($"Error: {ex.Message}");
             }
         }
+
+        [RelayCommand]
+        public async Task SubtractMetersToTheStyle()
+        {
+            try
+            {
+                using (WaitCursorChange.BeginWaitCursorBlock(this))
+                {
+                    SubtractMetersModel subtractMetersModel = new()
+                    {
+                        ID = RuloID,
+                        User = App.UserModel.UserID
+                    };
+
+                    var result = await finishingService.SubtractMetersInProductionStyle(subtractMetersModel);
+
+                    if (!result.IsSuccess)
+                    {
+                        await messageService.ShowErrorAsync(result.Message);
+                        return;
+                    }
+
+                    await messageService.ShowAlertAsync($"Registro correctamente escaneado, nuevos metros en el estilo: {result.Data}");
+
+                    RuloID = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                await messageService.ShowAlertAsync($"Error en escanear rollo: {ex.Message}");
+            }
+        }
     }
 }

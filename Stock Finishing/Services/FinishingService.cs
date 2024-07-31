@@ -13,8 +13,11 @@ namespace Stock_Finishing.Services
         Task<ResultModel<decimal>> SubtractMetersInProductionStyle(SubtractMetersModel request);
         Task<ResultModel<decimal>> SubtractMetersInReprocessStyle(SubtractMetersModel request);
         Task<ResultModel<InventoryMetersModel>> GetInventoryMeters(int type);
-        Task<ResultModel<InventoryMetersModel>> GetInventoryMetersByStyle(int type, string style);
-        Task<ResultModel<List<StyleModel>>> GetListStyleData(int type);
+        Task<ResultModel<InventoryMetersModel>> GetInventoryMetersByParam(int type, string param);
+        Task<ResultModel<List<StyleModel>>> GetListStyleData();
+        Task<ResultModel<List<OriginModel>>> GetListOriginData(int type);
+        Task<ResultModel<List<TabModel>>> GetTabs();
+
     }
 
     public class FinishingService : IFinishingService
@@ -101,20 +104,39 @@ namespace Stock_Finishing.Services
             return resultModel;
         }
 
-        public async Task<ResultModel<InventoryMetersModel>> GetInventoryMetersByStyle(int type, string style)
+        public async Task<ResultModel<InventoryMetersModel>> GetInventoryMetersByParam(int type, string param)
         {
             ResultModel<InventoryMetersModel> resultModel = new();
-            var responseApi = await repositoryApi.Get<InventoryMetersModel>($"Finishing/GetInventoryMetersByStyle?type={type}&style={style}");
+            var responseApi = await repositoryApi.Get<InventoryMetersModel>($"Finishing/GetInventoryMetersByParam?type={type}&param={param}");
 
             await ValidateResponse(resultModel, responseApi);
 
             return resultModel;
         }
 
-        public async Task<ResultModel<List<StyleModel>>> GetListStyleData(int type)
+        public async Task<ResultModel<List<StyleModel>>> GetListStyleData()
         {
             ResultModel<List<StyleModel>> resultModel = new();
-            var responseApi = await repositoryApi.Get<List<StyleModel>>($"Finishing/GetListStyleData?type={type}");
+            var responseApi = await repositoryApi.Get<List<StyleModel>>($"Finishing/GetListStyleData");
+
+            await ValidateResponse(resultModel, responseApi);
+
+            return resultModel;
+        }
+        public async Task<ResultModel<List<OriginModel>>> GetListOriginData(int type)
+        {
+            ResultModel<List<OriginModel>> resultModel = new();
+            var responseApi = await repositoryApi.Get<List<OriginModel>>($"Finishing/GetListOriginData?type={type}");
+
+            await ValidateResponse(resultModel, responseApi);
+
+            return resultModel;
+        }
+
+        public async Task<ResultModel<List<TabModel>>> GetTabs()
+        {
+            ResultModel<List<TabModel>> resultModel = new();
+            var responseApi = await repositoryApi.Get<List<TabModel>>($"Finishing/GetTabsForStockApp");
 
             await ValidateResponse(resultModel, responseApi);
 

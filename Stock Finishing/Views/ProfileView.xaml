@@ -6,7 +6,7 @@
         <VerticalStackLayout Padding="-10,-10,-10,10" Spacing="10">
             <Border BackgroundColor="#151e3d"
                Padding="0"
-               HeightRequest="175"
+               HeightRequest="150"
                StrokeThickness="1"
                StrokeShape="RoundRectangle 25,25,25,25"
                HorizontalOptions="FillAndExpand">
@@ -27,6 +27,11 @@
                     </Border>
                 </VerticalStackLayout>
             </Border>
+            
+            <Label Text="Desarrollador: Oscar Uriel Cuello Juárez"
+               FontSize="Small"
+               TextColor="Black"
+               HorizontalOptions="Center"/>
 
             <VerticalStackLayout Padding="5" Spacing="5" HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
                 <Label Text="Username:"

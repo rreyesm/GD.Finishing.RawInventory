@@ -1,13 +1,144 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             xmlns:dxc="clr-namespace:DevExpress.Maui.Charts;assembly=DevExpress.Maui.Charts"
+             xmlns:vm="clr-namespace:Stock_Finishing.ViewModels"
+             xmlns:local="clr-namespace:Stock_Finishing.Helpers"
              x:Class="Stock_Finishing.Views.StockProductionView"
-             Title="StockProductionView"
              Shell.NavBarIsVisible="False">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    
+    <ContentPage.BindingContext>
+        <vm:StockProductionViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ThousandsSeparatorConverter x:Key="ThousandsSeparatorConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="10,0,10,10">
+            <dx:AutoCompleteEdit
+                Margin="0,10,0,10"
+                LabelText="Buscar origen"
+                DisplayMember="OriginCode"
+                PlaceholderText="Escriba para buscar"
+                NoResultsFoundText="No se encontraron resultados"
+                VerticalOptions="Center"
+                ItemsSourceProvider="{Binding AutoCompleteItemsSourceProvider}"
+                SelectionChangedCommand="{Binding OnOriginSelectedCommand}"
+                SelectedItem="{Binding SelectedOrigin, Mode=TwoWay}">
+                <dx:AutoCompleteEdit.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Margin="5,10,5,10">
+                            <Label Text="{Binding OriginCode}" />
+                            <Label Text="{Binding OriginDescription}" FontSize="Default" TextColor="Gray"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </dx:AutoCompleteEdit.ItemTemplate>
+            </dx:AutoCompleteEdit>
+
+            <Grid ColumnDefinitions="*,*"
+              Padding="0,5,0,5"
+              ColumnSpacing="10">
+                <Border BackgroundColor="#42a5f5"
+                    Padding="10"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 10,10,10,10"
+                    Grid.Column="0">
+                    <VerticalStackLayout>
+                        <Label Text="{Binding MetersScanned , Converter={StaticResource ThousandsSeparatorConverter}}"
+                           FontSize="Large"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           HorizontalOptions="Center"/>
+                        <Label Text="Metros escaneados"
+                           FontSize="Medium"
+                           TextColor="White"
+                           HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+                <Border BackgroundColor="#ff5251"
+                    Padding="10"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 10,10,10,10"
+                    Grid.Column="1">
+                    <VerticalStackLayout>
+                        <Label Text="{Binding MetersWithoutScanned, Converter={StaticResource ThousandsSeparatorConverter}}"
+                           FontSize="Large"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           HorizontalOptions="Center"/>
+                        <Label Text="Metros sin escanear"
+                           FontSize="Medium"
+                           TextColor="White"
+                           HorizontalOptions="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <Border BackgroundColor="Transparent"
+                HeightRequest="285"
+                Padding="0"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 10,10,10,10"
+                Margin="0,10,0,0">
+                <dx:PieChartView SelectionBehavior="Hatch">
+                    <dx:PieChartView.Series>
+                        <dx:DonutSeries>
+                            <dx:DonutSeries.Data>
+                                <dx:PieSeriesDataAdapter DataSource="{Binding RollosData}"
+                                                     LabelDataMember="Category"
+                                                     ValueDataMember="Quantity"/>
+                            </dx:DonutSeries.Data>
+                            <dx:DonutSeries.Label>
+                                <dx:PieSeriesLabel Position="TwoColumns" TextPattern="{}{VP}%" Indent="20">
+                                    <dx:PieSeriesLabel.Style>
+                                        <dx:PieSeriesLabelStyle ConnectorThickness="1">
+                                            <dx:PieSeriesLabelStyle.TextStyle>
+                                                <dx:TextStyle Color="Black" Size="12"/>
+                                            </dx:PieSeriesLabelStyle.TextStyle>
+                                        </dx:PieSeriesLabelStyle>
+                                    </dx:PieSeriesLabel.Style>
+                                </dx:PieSeriesLabel>
+                            </dx:DonutSeries.Label>
+                            <dx:DonutSeries.HintOptions>
+                                <dx:PieSeriesHintOptions PointTextPattern="{}{L}: {V}M sq km"/>
+                            </dx:DonutSeries.HintOptions>
+                        </dx:DonutSeries>
+                    </dx:PieChartView.Series>
+                    <dx:PieChartView.ChartStyle>
+                        <dx:PieChartStyle Palette="{Binding Palette}" 
+                                      BackgroundColor="White"/>
+                    </dx:PieChartView.ChartStyle>
+                    <dx:PieChartView.Legend>
+                        <dx:Legend Orientation="TopToBottom"
+                               HorizontalPosition="Center"
+                               VerticalPosition="BottomOutside">
+                            <dx:Legend.Style>
+                                <dx:LegendStyle BorderColor="Transparent" BorderThickness="1"
+                                            BackgroundColor="White"
+                                            MarkerSize="18" TextIndent="6"
+                                            ItemsVerticalIndent="12">
+                                    <dx:LegendStyle.TextStyle>
+                                        <dx:TextStyle Color="Black" Size="12"/>
+                                    </dx:LegendStyle.TextStyle>
+                                </dx:LegendStyle>
+                            </dx:Legend.Style>
+                        </dx:Legend>
+                    </dx:PieChartView.Legend>
+                    <dx:PieChartView.Hint>
+                        <dx:PieHint Enabled="True">
+                            <dx:PieHint.Style>
+                                <dx:PieHintStyle BackgroundColor="White"/>
+                            </dx:PieHint.Style>
+                        </dx:PieHint>
+                    </dx:PieChartView.Hint>
+                </dx:PieChartView>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
