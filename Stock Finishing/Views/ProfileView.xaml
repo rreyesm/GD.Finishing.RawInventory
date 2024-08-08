@@ -4,28 +4,32 @@
              x:Class="Stock_Finishing.Views.ProfileView">
     <ScrollView>
         <VerticalStackLayout Padding="-10,-10,-10,10" Spacing="10">
-            <Border BackgroundColor="#151e3d"
-               Padding="0"
-               HeightRequest="150"
-               StrokeThickness="1"
-               StrokeShape="RoundRectangle 25,25,25,25"
-               HorizontalOptions="FillAndExpand">
-                <VerticalStackLayout HorizontalOptions="Center"
-                                 VerticalOptions="Center">
-                    <Border HeightRequest="120"
-                       WidthRequest="120"
-                       StrokeThickness="3"
-                       StrokeShape="RoundRectangle 80,80,80,80"
-                       Padding="0"
-                       HorizontalOptions="Center"
-                       VerticalOptions="Center"
-                       Margin="0,20,0,10">
-                        <Image Source="logogd.png"
-                           HeightRequest="120"
-                           WidthRequest="120"
-                           Aspect="AspectFill"/>
-                    </Border>
-                </VerticalStackLayout>
+            <Border Padding="0"
+                    HeightRequest="175"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 25,25,30,30"
+                    HorizontalOptions="FillAndExpand">
+                <Grid>
+                    <Image Source="denim.jpg"
+                        Aspect="AspectFill"
+                        Opacity="1"/>
+                    <VerticalStackLayout HorizontalOptions="Center"
+                             VerticalOptions="Center">
+                        <Border HeightRequest="120"
+                                WidthRequest="120"
+                                StrokeThickness="2"
+                                StrokeShape="RoundRectangle 80,80,80,80"
+                                Padding="0"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                Margin="0,20,0,10">
+                            <Image Source="logogd.png"
+                                HeightRequest="120"
+                                WidthRequest="120"
+                                Aspect="AspectFill"/>
+                        </Border>
+                    </VerticalStackLayout>
+                </Grid>
             </Border>
             
             <Label Text="Desarrollador: Oscar Uriel Cuello Juárez"

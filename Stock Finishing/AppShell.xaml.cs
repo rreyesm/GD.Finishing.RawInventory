@@ -30,7 +30,7 @@ namespace Stock_Finishing
                 Routing.RegisterRoute(nameof(ScanRollReprocessView), typeof(ScanRollReprocessView));
                 Routing.RegisterRoute(nameof(ProfileView), typeof(ProfileView));
 
-                LoadTabs();
+                //LoadTabs();
 
             }
             catch (Exception ex)
@@ -39,42 +39,42 @@ namespace Stock_Finishing
             }
         }
 
-        private async void LoadTabs()
-        {
-            try
-            {
-                var resultModel = await _service.GetTabs();
-                if (resultModel.IsSuccess)
-                {
-                    var tabs = resultModel.Data;
-                    foreach (var tab in tabs)
-                    {
-                        switch (tab.TabName.ToLower())
-                        {
-                            case "crudo":
-                                IsRawVisible = tab.Show;
-                                break;
-                            case "rollos":
-                                IsProductionVisible = tab.Show;
-                                break;
-                            case "reprocesos":
-                                IsReprocessVisible = tab.Show;
-                                break;
-                        }
-                    }
-                    OnPropertyChanged(nameof(IsRawVisible));
-                    OnPropertyChanged(nameof(IsProductionVisible));
-                    OnPropertyChanged(nameof(IsReprocessVisible));
-                }
-                else
-                {
-                    await App.Current.Services.GetService<IMessageService>().ShowAlertAsync(resultModel.Message);
-                }
-            }
-            catch (Exception ex)
-            {
-                await App.Current.Services.GetService<IMessageService>().ShowAlertAsync(ex.Message);
-            }
-        }
+        //private async void LoadTabs()
+        //{
+        //    try
+        //    {
+        //        var resultModel = await _service.GetTabs();
+        //        if (resultModel.IsSuccess)
+        //        {
+        //            var tabs = resultModel.Data;
+        //            foreach (var tab in tabs)
+        //            {
+        //                switch (tab.TabName.ToLower())
+        //                {
+        //                    case "crudo":
+        //                        IsRawVisible = tab.Show;
+        //                        break;
+        //                    case "rollos":
+        //                        IsProductionVisible = tab.Show;
+        //                        break;
+        //                    case "reprocesos":
+        //                        IsReprocessVisible = tab.Show;
+        //                        break;
+        //                }
+        //            }
+        //            OnPropertyChanged(nameof(IsRawVisible));
+        //            OnPropertyChanged(nameof(IsProductionVisible));
+        //            OnPropertyChanged(nameof(IsReprocessVisible));
+        //        }
+        //        else
+        //        {
+        //            await App.Current.Services.GetService<IMessageService>().ShowAlertAsync(resultModel.Message);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        await App.Current.Services.GetService<IMessageService>().ShowAlertAsync(ex.Message);
+        //    }
+        //}
     }
 }

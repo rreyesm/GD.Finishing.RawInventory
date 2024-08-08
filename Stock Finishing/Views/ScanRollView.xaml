@@ -24,7 +24,7 @@
                 <Border BackgroundColor="#E0F7FA"
                     StrokeThickness="1"
                     StrokeShape="RoundRectangle 10,10,10,10"
-                    HeightRequest="375"
+                    HeightRequest="360"
                     Margin="0,20,0,0"
                     Padding="15">
                     <VerticalStackLayout Spacing="10">
@@ -32,92 +32,104 @@
                             <Image Source="icon_scan.png"
                                 HeightRequest="24"
                                 WidthRequest="24" />
-                            <Label Text="Escanear etiqueta de rollo"
+                            <Label Text="Escanear etiqueta de tela"
                                 FontSize="Medium"
                                 FontAttributes="Bold"
                                 TextColor="#00796B" />
                         </HorizontalStackLayout>
 
                         <HorizontalStackLayout Spacing="10" HorizontalOptions="CenterAndExpand">
-                            <Label Text="ID de Rollo:"
+                            <Label Text="ID de Tela:"
                                 FontSize="Medium"
                                 VerticalOptions="Center"
                                 HorizontalOptions="Center" />
-                            <Entry Placeholder="Ingrese el ID del Rollo"
+                            <Entry Placeholder="Ingrese el ID"
                                 x:Name="entRuloMigrationID"
                                 Keyboard="Numeric"
-                                Text="{Binding RuloMigrationID, Converter={StaticResource doubleConverter}, Mode=TwoWay}"
+                                Text="{Binding RegisterID, Converter={StaticResource doubleConverter}, Mode=TwoWay}"
                                 FontSize="Medium"
                                 HorizontalOptions="Center"/>
                         </HorizontalStackLayout>
 
-                        <HorizontalStackLayout Spacing="10" HeightRequest="35" HorizontalOptions="CenterAndExpand">
-                            <Label Text="ID del Rollo:"
+                        <HorizontalStackLayout Spacing="10" HeightRequest="25" HorizontalOptions="CenterAndExpand">
+                            <Label Text="ID:"
                                 FontSize="Medium"
                                 VerticalOptions="Center"
                                 FontAttributes="Bold"
                                 HorizontalOptions="Center" />
-                            <Label Text="{Binding RuloMigration.RuloMigrationID}"
+                            <Label Text="{Binding Register.ID}"
                                 FontSize="Medium"
                                 VerticalOptions="Center"
                                 HorizontalOptions="Center" />
                         </HorizontalStackLayout>
 
-                        <HorizontalStackLayout Spacing="10" HeightRequest="35" HorizontalOptions="CenterAndExpand">
-                            <Label Text="Lote del Rollo:"
+                        <HorizontalStackLayout Spacing="10" HeightRequest="25" HorizontalOptions="CenterAndExpand">
+                            <Label Text="Lote:"
                                 FontSize="Medium"
                                 VerticalOptions="Center"
                                 FontAttributes="Bold"
                                 HorizontalOptions="Center" />
-                            <Label Text="{Binding RuloMigration.Lote}"
+                            <Label Text="{Binding Register.Lote}"
                                 FontSize="Medium"
                                 VerticalOptions="Center"
                                 HorizontalOptions="Center" />
                         </HorizontalStackLayout>
 
-                        <HorizontalStackLayout Spacing="10" HeightRequest="35" HorizontalOptions="CenterAndExpand">
-                            <Label Text="Julio del Rollo:"
+                        <HorizontalStackLayout Spacing="10" HeightRequest="25" HorizontalOptions="CenterAndExpand">
+                            <Label Text="Julio:"
                                 FontSize="Medium"
                                 VerticalOptions="Center"
                                 FontAttributes="Bold"
                                 HorizontalOptions="Center" />
-                            <Label Text="{Binding RuloMigration.Beam}"
+                            <Label Text="{Binding Register.Beam}"
                                 FontSize="Medium"
                                 VerticalOptions="Center"
                                 HorizontalOptions="Center" />
                         </HorizontalStackLayout>
 
-                        <HorizontalStackLayout Spacing="10" HeightRequest="35" HorizontalOptions="CenterAndExpand">
-                            <Label Text="Telar del Rollo:"
+                        <HorizontalStackLayout Spacing="10" HeightRequest="25" HorizontalOptions="CenterAndExpand">
+                            <Label Text="Telar:"
                                 FontSize="Medium"
                                 VerticalOptions="Center"
                                 FontAttributes="Bold"
                                 HorizontalOptions="Center" />
-                            <Label Text="{Binding RuloMigration.Loom}"
+                            <Label Text="{Binding Register.Loom}"
                                 FontSize="Medium"
                                 VerticalOptions="Center"
                                 HorizontalOptions="Center" />
                         </HorizontalStackLayout>
 
-                        <HorizontalStackLayout Spacing="10" HeightRequest="35" HorizontalOptions="CenterAndExpand">
-                            <Label Text="Estilo del Rollo:"
+                        <HorizontalStackLayout Spacing="10" HeightRequest="25" HorizontalOptions="CenterAndExpand">
+                            <Label Text="Estilo:"
                                 FontSize="Medium"
                                 VerticalOptions="Center"
                                 FontAttributes="Bold"
                                 HorizontalOptions="Center" />
-                            <Label Text="{Binding RuloMigration.StyleName}"
+                            <Label Text="{Binding Register.StyleName}"
                                 FontSize="Medium"
                                 VerticalOptions="Center"
                                 HorizontalOptions="Center" />
                         </HorizontalStackLayout>
 
-                        <HorizontalStackLayout Spacing="10" HeightRequest="35" HorizontalOptions="CenterAndExpand">
-                            <Label Text="Metros del Rollo:"
+                        <HorizontalStackLayout Spacing="10" HeightRequest="25" HorizontalOptions="CenterAndExpand">
+                            <Label Text="Metros:"
                                 FontSize="Medium"
                                 VerticalOptions="Center"
                                 FontAttributes="Bold"
                                 HorizontalOptions="Center" />
-                            <Label Text="{Binding RuloMigration.Meters}"
+                            <Label Text="{Binding Register.Meters}"
+                                FontSize="Medium"
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center" />
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout Spacing="10" HeightRequest="25" HorizontalOptions="CenterAndExpand">
+                            <Label Text="Tipo:"
+                                FontSize="Medium"
+                                VerticalOptions="Center"
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center" />
+                            <Label Text="{Binding Register.Type}"
                                 FontSize="Medium"
                                 VerticalOptions="Center"
                                 HorizontalOptions="Center" />
@@ -136,7 +148,7 @@
                 x:Name="btnAddRuloMigration"
                 FontSize="Medium"
                 HeightRequest="50"
-                Command="{Binding SearchRuloMigrationCommand}"
+                Command="{Binding SearchRegisterCommand}"
                 CommandParameter="{x:Reference entRuloMigrationID}"
                 CornerRadius="10"
                 HorizontalOptions="Center"/>
@@ -146,15 +158,15 @@
                 TextColor="White"
                 FontSize="Medium"
                 HeightRequest="50"
-                Command="{Binding SubtractMetersToTheStyleCommand}"
+                Command="{Binding SubtractMetersCommand}"
                 CornerRadius="10"
                 HorizontalOptions="Center"
-                IsEnabled="{Binding IsRuloMigrationAvailable}">
+                IsEnabled="{Binding IsRegisterAvailable}">
                 <Button.Triggers>
-                    <DataTrigger TargetType="Button" Binding="{Binding IsRuloMigrationAvailable}" Value="False">
+                    <DataTrigger TargetType="Button" Binding="{Binding IsRegisterAvailable}" Value="False">
                         <Setter Property="BackgroundColor" Value="Gray" />
                     </DataTrigger>
-                    <DataTrigger TargetType="Button" Binding="{Binding IsRuloMigrationAvailable}" Value="True">
+                    <DataTrigger TargetType="Button" Binding="{Binding IsRegisterAvailable}" Value="True">
                         <Setter Property="BackgroundColor" Value="#4CAF50" />
                     </DataTrigger>
                 </Button.Triggers>

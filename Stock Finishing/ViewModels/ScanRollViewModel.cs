@@ -19,26 +19,26 @@ namespace Stock_Finishing.ViewModels
         }
 
         [ObservableProperty]
-        int ruloMigrationID;
+        int registerID;
 
-        private RuloMigrationModel _ruloMigration = new();
-        public RuloMigrationModel RuloMigration
+        private FabricInformationDTO _register = new();
+        public FabricInformationDTO Register
         {
-            get => _ruloMigration;
+            get => _register;
             set
             {
-                _ruloMigration = value;
+                _register = value;
                 OnPropertyChanged();
             }
         }
 
-        private bool _isRuloMigrationAvailable;
-        public bool IsRuloMigrationAvailable
+        private bool _isRegisterAvailable;
+        public bool IsRegisterAvailable
         {
-            get => _isRuloMigrationAvailable;
+            get => _isRegisterAvailable;
             set
             {
-                _isRuloMigrationAvailable = value;
+                _isRegisterAvailable = value;
                 OnPropertyChanged();
             }
         }
@@ -50,15 +50,15 @@ namespace Stock_Finishing.ViewModels
         }
 
         [RelayCommand]
-        public async Task SearchRuloMigration(object obj)
+        public async Task SearchRegister(object obj)
         {
             try
             {
-                IsRuloMigrationAvailable = false;
+                IsRegisterAvailable = false;
 
                 using (WaitCursorChange.BeginWaitCursorBlock(this))
                 {
-                    var result = await finishingService.GetRuloMigration(RuloMigrationID);
+                    var result = await finishingService.GetFabricInformationForStock(RegisterID);
 
                     if (!result.IsSuccess)
                     {
@@ -68,12 +68,12 @@ namespace Stock_Finishing.ViewModels
 
                     if (result.Data == null)
                     {
-                        await messageService.ShowAlertAsync("No se encontró el ID de Rulo en la base de datos");
+                        await messageService.ShowAlertAsync("No se encontró el ID en la base de datos");
                         return;
                     }
 
-                    RuloMigration = result.Data;
-                    IsRuloMigrationAvailable = RuloMigration != null;
+                    Register = result.Data;
+                    IsRegisterAvailable = Register != null;
                 }
             }
             catch (Exception ex)
@@ -83,7 +83,7 @@ namespace Stock_Finishing.ViewModels
         }
 
         [RelayCommand]
-        public async Task SubtractMetersToTheStyle()
+        public async Task SubtractMeters()
         {
             try
             {
@@ -91,11 +91,11 @@ namespace Stock_Finishing.ViewModels
                 {
                     SubtractMetersModel subtractMetersModel = new()
                     {
-                        ID = RuloMigrationID,
+                        ID = RegisterID,
                         User = App.UserModel.UserID
                     };
 
-                    var result = await finishingService.SubtractMetersInRawStyle(subtractMetersModel);
+                    var result = await finishingService.SubtractMetersByType(Register.Type.ToLower(), subtractMetersModel);
 
                     if (!result.IsSuccess)
                     {
@@ -105,7 +105,8 @@ namespace Stock_Finishing.ViewModels
 
                     await messageService.ShowAlertAsync($"Registro correctamente escaneado, nuevos metros en el estilo: {result.Data}");
 
-                    RuloMigrationID = 0;
+                    RegisterID = 0;
+                    Register = new FabricInformationDTO();
                 }
             }
             catch (Exception ex)

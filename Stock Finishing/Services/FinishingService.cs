@@ -17,7 +17,8 @@ namespace Stock_Finishing.Services
         Task<ResultModel<List<StyleModel>>> GetListStyleData();
         Task<ResultModel<List<OriginModel>>> GetListOriginData(int type);
         Task<ResultModel<List<TabModel>>> GetTabs();
-
+        Task<ResultModel<FabricInformationDTO>> GetFabricInformationForStock(int registerID);
+        Task<ResultModel<decimal>> SubtractMetersByType(string type, SubtractMetersModel request);
     }
 
     public class FinishingService : IFinishingService
@@ -137,6 +138,26 @@ namespace Stock_Finishing.Services
         {
             ResultModel<List<TabModel>> resultModel = new();
             var responseApi = await repositoryApi.Get<List<TabModel>>($"Finishing/GetTabsForStockApp");
+
+            await ValidateResponse(resultModel, responseApi);
+
+            return resultModel;
+        }
+
+        public async Task<ResultModel<FabricInformationDTO>> GetFabricInformationForStock(int registerID)
+        {
+            ResultModel<FabricInformationDTO> resultModel = new();
+            var responseApi = await repositoryApi.Get<FabricInformationDTO>($"Finishing/GetFabricInformationForStock?registerID={registerID}");
+
+            await ValidateResponse(resultModel, responseApi);
+
+            return resultModel;
+        }
+
+        public async Task<ResultModel<decimal>> SubtractMetersByType(string type, SubtractMetersModel request)
+        {
+            ResultModel<decimal> resultModel = new();
+            var responseApi = await repositoryApi.Post<decimal, SubtractMetersModel>($"Finishing/SubtractMetersByType?type={type}", request);
 
             await ValidateResponse(resultModel, responseApi);
 
